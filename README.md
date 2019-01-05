@@ -3,7 +3,7 @@ Demo project for Spring Boot
 
 Special thanks to:
 
-Original series from Andrew [Youtube](youtube.com/letsCodeDru) .
+Original series from Andrew [Youtube](https://youtube.com/letsCodeDru) .
 
 Supporting from many people from his channel [Telegram](https://t.me/joinchat/FeiP9xEhqHajfqhLr4z-Nw) .
 
