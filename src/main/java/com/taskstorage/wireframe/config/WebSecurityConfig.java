@@ -19,22 +19,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .anyRequest().authenticated()
-                .and()
-                    .formLogin()
+                    .and()
+                .formLogin()
                     .loginPage("/login")
                     .permitAll()
-                .and()
-                    .logout()
+                    .and()
+                .logout()
                     .permitAll();
     }
-//TODO 3.58 форму логина и выпилить левого пользователя
+
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
         UserDetails user =
                 User.withDefaultPasswordEncoder()
-                        .username("1")
-                        .password("1")
+                        .username("u")
+                        .password("p")
                         .roles("USER")
                         .build();
 

@@ -13,6 +13,7 @@
     <div>
         <input type="text" name="content" placeholder="Details">
     </div>
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <div>
         <button type="submit">Добавить</button>
     </div>
@@ -33,6 +34,7 @@
         <td>${task.content}</td>
         <td>
                 <form method="post" action="/delTask/${task.id}">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                     <button type="submit">Удалить</button>
                 </form>
         </td>
@@ -48,6 +50,7 @@
 <div>
     <form method="post" action="/search">
         <input type="text" name="searchTag"/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button type="submit">Найти</button>
     </form>
 </div>
