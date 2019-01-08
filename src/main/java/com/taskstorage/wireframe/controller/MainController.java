@@ -1,8 +1,10 @@
 package com.taskstorage.wireframe.controller;
 
 import com.taskstorage.wireframe.domain.Task;
+import com.taskstorage.wireframe.domain.User;
 import com.taskstorage.wireframe.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +30,12 @@ public class MainController {
     }
 
     @PostMapping("/addTask")
-    public String add(@RequestParam String description, @RequestParam String content,Model model) {
+    public String add(@AuthenticationPrincipal User user,
+                      @RequestParam String description,
+                      @RequestParam String content,
+                      Model model) {
 
-        Task task = new Task(description, content);
+        Task task = new Task(description, content, user);
         taskRepository.save(task);
 
         return "redirect:/tasks";

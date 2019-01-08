@@ -1,9 +1,6 @@
 package com.taskstorage.wireframe.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Task {
@@ -15,36 +12,44 @@ public class Task {
     private String description;
     private String content;
 
-    public Task() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
 
+    public Task() {
     }
 
-    public Task(String description, String content) {
+    public Task(String description, String content, User user) {
         this.description = description;
         this.content = content;
+        this.author = user;
     }
+
+    public String getAuthorName() { return author !=null ? author.getUsername() : "<anonymous>"; }
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public String getContent() {
         return content;
     }
-
     public void setContent(String content) {
         this.content = content;
     }
+    public User getAuthor() {
+        return author;
+    }
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
 }
