@@ -24,6 +24,7 @@
 <tr>
     <th>Description</th>
     <th>Content</th>
+    <th>Author</th>
     <th>Action</th>
 </tr>
 </thead>
@@ -32,6 +33,7 @@
     <tr>
         <td>${task.description}</td>
         <td>${task.content}</td>
+        <td>${task.author.getUsername()}</td>
         <td>
                 <form method="post" action="/delTask/${task.id}">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>

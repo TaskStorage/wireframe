@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder(8); }
-
+    //Default config - https://spring.io/guides/gs/securing-web/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
