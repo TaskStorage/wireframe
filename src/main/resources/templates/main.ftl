@@ -2,30 +2,37 @@
 <#import "parts/login.ftl" as l>
 <@c.page>
 <#--Добавление-->
-<form method="post" action="/addTask" enctype="multipart/form-data">
-    <div>
-        <input type="text" name="description" placeholder="Enter description">
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Add new task
+    </a>
+    <div class="collapse" id="collapseExample">
+    <div class="form-group mt-3">
+        <form method="post" action="/addTask" enctype="multipart/form-data">
+            <div>
+                <input type="text" name="description" placeholder="Enter description">
+            </div>
+            <div>
+                <input type="text" name="content" placeholder="Details">
+            </div>
+            <div>
+                <input type="file" name="file">
+            </div>
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <div>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <input type="text" name="content" placeholder="Details">
     </div>
-    <div>
-        <input type="file" name="file">
-    </div>
-    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-    <div>
-        <button type="submit">Добавить</button>
-    </div>
-</form>
 <#--Вывод-->
-<table>
+<table class="table table-sm mt-3">
 <thead>
 <tr>
-    <th>Description</th>
-    <th>Content</th>
-    <th>Author</th>
-    <th>Attachment</th>
-    <th>Action</th>
+    <th scope="col">Description</th>
+    <th scope="col">Content</th>
+    <th scope="col">Author</th>
+    <th scope="col">Attachment</th>
+    <th scope="col">Action</th>
 </tr>
 </thead>
 <tbody>
@@ -38,7 +45,7 @@
         <td>
                 <form method="post" action="/delTask/${task.id}">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                    <button type="submit">Удалить</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </form>
         </td>
     </tr>
@@ -50,11 +57,10 @@
 </tbody>
 </table>
 <#--Сортировка-->
-<div>
-    <form method="get" action="/tasks">
-        <input type="text" name="searchTag" value="${searchTag?ifExists}"/>
-        <button type="submit">Найти</button>
-    </form>
-</div>
-<@l.logout/>
+
+<form method="get" action="/tasks" class="form-inline">
+    <input type="text" name="searchTag" class="form-control" value="${searchTag?ifExists}" placeholder="Search"/>
+    <button type="submit" class="btn btn-primary ml-1">Search</button>
+</form>
+
 </@c.page>

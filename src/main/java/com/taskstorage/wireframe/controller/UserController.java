@@ -26,7 +26,6 @@ public class UserController {
         model.addAttribute("users", userRepository.findAll());
         return "userList";
     }
-
     //    Достаём пользователей
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model) {
@@ -34,16 +33,23 @@ public class UserController {
         model.addAttribute("roles", Role.values());
         return "userEdit";
     }
-
     // Сохраняем изменения
     @PostMapping
     public String userSave(
             @RequestParam String username,
+            @RequestParam(required = false) String active,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user) {
         user.setUsername(username);
-        //Переводим роли в получаем список ролей и переводим из Енама в Стринги
-        //6 ~10.00
+//        Для строкового поля
+//        user.setActive(Boolean.parseBoolean(active));
+        if (active !=null && active.equals("on")) {
+            user.setActive(true);
+        }
+        else {
+            user.setActive(false);
+        }
+        //Получаем список ролей и переводим из Енама в Стринги
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
@@ -60,5 +66,4 @@ public class UserController {
 
         return "redirect:/user";
     }
-
 }
