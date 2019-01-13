@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
+<#import "parts/common.ftl" as c>
+<@c.page>
     <h5>Hello, user, <a href="/tasks">click!</a></h5>
     <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis erat ac nulla porta elementum. Vestibulum malesuada auctor enim, ac tempor ex convallis quis.
@@ -35,5 +31,4 @@
         Praesent finibus luctus viverra. In pretium sollicitudin velit id semper. Sed turpis ante, scelerisque aliquam hendrerit sed, hendrerit mattis lacus.
         Aenean velit diam, pellentesque ut lectus sit amet, mollis rutrum tellus.
     </div>
-</body>
-</html>
+</@c.page>

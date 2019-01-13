@@ -24,9 +24,18 @@ public class MainController {
     }
 
     @GetMapping("/tasks")
-    public String list(Model model) {
-        Iterable<Task> tasks = taskRepository.findAll();
+    public String list(@RequestParam(required = false, defaultValue = "") String searchTag, Model model) {
+
+        Iterable<Task> tasks;
+
+        if (searchTag != null && !searchTag.isEmpty()) {
+            tasks = taskRepository.findByDescriptionContainingOrContentContaining(searchTag, searchTag);
+        } else {
+            tasks = taskRepository.findAll();
+        }
+
         model.addAttribute("tasks", tasks);
+        model.addAttribute("searchTag", searchTag);
         return "main";
     }
 
@@ -41,6 +50,7 @@ public class MainController {
 
         return "redirect:/tasks";
     }
+
     @PostMapping("/delTask/{id}")
     public String delete(@PathVariable Long id, Model model) {
 
@@ -49,18 +59,18 @@ public class MainController {
         return "redirect:/tasks";
     }
 
-    @PostMapping("/search")
-    public String search(@RequestParam String searchTag, Model model) {
-
-        Iterable<Task> tasks;
-
-        if (searchTag != null && !searchTag.isEmpty()) {
-            tasks = taskRepository.findByDescriptionContainingOrContentContaining(searchTag, searchTag);
-        } else {
-            tasks = taskRepository.findAll();
-        }
-
-        model.addAttribute("tasks", tasks);
-        return "main";
-    }
+//    @PostMapping("/search")
+//    public String search(@RequestParam String searchTag, Model model) {
+//
+//        Iterable<Task> tasks;
+//
+//        if (searchTag != null && !searchTag.isEmpty()) {
+//            tasks = taskRepository.findByDescriptionContainingOrContentContaining(searchTag, searchTag);
+//        } else {
+//            tasks = taskRepository.findAll();
+//        }
+//
+//        model.addAttribute("tasks", tasks);
+//        return "main";
+//    }
 }

@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TaskStorage</title>
-</head>
-<body>
+<#import "parts/common.ftl" as c>
+<#import "parts/login.ftl" as l>
+<@c.page>
 <#--Добавление-->
 <form method="post" action="/addTask" enctype="multipart/form-data">
     <div>
@@ -50,12 +46,10 @@
 </table>
 <#--Сортировка-->
 <div>
-    <form method="post" action="/search">
-        <input type="text" name="searchTag"/>
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <form method="get" action="/tasks">
+        <input type="text" name="searchTag" value="${searchTag?ifExists}"/>
         <button type="submit">Найти</button>
     </form>
 </div>
-
-</body>
-</html>
+<@l.logout/>
+</@c.page>
