@@ -11,10 +11,12 @@ public class Task {
 
     private String description;
     private String content;
+    private String filename;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
+
 
     public Task() {
     }
@@ -24,8 +26,6 @@ public class Task {
         this.content = content;
         this.author = user;
     }
-
-    public String getAuthorName() { return author !=null ? author.getUsername() : "<anonymous>"; }
 
     public Long getId() {
         return id;
@@ -50,6 +50,12 @@ public class Task {
     }
     public void setAuthor(User author) {
         this.author = author;
+    }
+    public String getFilename() {
+        return filename;
+    }
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
 }
