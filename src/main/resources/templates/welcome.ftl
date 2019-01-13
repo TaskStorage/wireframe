@@ -1,6 +1,6 @@
 <#import "parts/common.ftl" as c>
 <@c.page>
-    <h5>Hello, user, <a href="/tasks">click!</a></h5>
+    <h5>Hello, guest</h5>
     <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis erat ac nulla porta elementum. Vestibulum malesuada auctor enim, ac tempor ex convallis quis.
         Morbi ac lorem viverra, eleifend nulla quis, suscipit nisi. Vivamus finibus, nunc nec cursus tristique, nisl nisl bibendum elit, et tempor ante ex vitae quam.

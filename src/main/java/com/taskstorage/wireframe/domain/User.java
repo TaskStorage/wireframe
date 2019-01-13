@@ -33,15 +33,16 @@ public class User implements UserDetails {
     public Set<Role> getRoles() {return roles;}
     public void setRoles(Set<Role> roles) {this.roles = roles;}
 
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
+
     @Override
     public boolean isAccountNonExpired() { return true; }
-
     @Override
     public boolean isAccountNonLocked() { return true; }
-
     @Override
     public boolean isCredentialsNonExpired() { return true; }
-
     @Override
     public boolean isEnabled() { return isActive(); }
     @Override
