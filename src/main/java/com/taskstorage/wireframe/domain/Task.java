@@ -10,6 +10,7 @@ public class Task {
     private Long id;
 
     private String description;
+    @Column(length=1024)
     private String content;
     private String filename;
 
