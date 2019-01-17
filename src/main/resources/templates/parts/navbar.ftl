@@ -25,6 +25,11 @@
                     <a class="nav-link" href="/user">User list</span></a>
                 </li>
             </#if>
+            <#if user??>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/profile">Profile</span></a>
+                </li>
+            </#if>
         </ul>
         <#if user??>
             <div class="navbar-text mr-3 text-light">${name}</div>
