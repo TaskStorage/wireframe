@@ -10,6 +10,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <!-- /Bootstrap -->
         <title>TaskStorage</title>
+        <#-- Google captcha part 1 -->
+        <#--https://www.google.com/recaptcha/admin#list-->
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <#-- /Google captcha part 1-->
     </head>
     <body>
     <#include "navbar.ftl">
