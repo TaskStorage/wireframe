@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -50,28 +53,55 @@ public class MainController {
 
     @PostMapping("/addTask")
     public String add(@AuthenticationPrincipal User user,
-                      @RequestParam String description,
-                      @RequestParam String content,
-                      Model model,@RequestParam("file") MultipartFile file) throws IOException {
+                      @Valid Task task,
+                      BindingResult bindingResult,
+//                      @RequestParam String description,
+//                      @RequestParam String content,
+                      Model model,
+                      @RequestParam("file") MultipartFile file) throws IOException {
 
-        Task task = new Task(description, content, user);
+//        Task task = new Task(description, content, user);
+        task.setAuthor(user);
 
-        if (file !=null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
+        if (bindingResult.hasErrors()) {
+            //Смотри ControllerUtils
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            //Добавляем ошибки в модель
+            model.mergeAttributes(errorsMap);
+            //Заполняем поля в форме добавления чтоб не вводить заново
+            model.addAttribute("task", task);
+        } else {
+            if (file != null && !file.getOriginalFilename().isEmpty()) {
+                File uploadDir = new File(uploadPath);
 
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                String uuidFile = UUID.randomUUID().toString();
+                String resultFilename = uuidFile + "." + file.getOriginalFilename();
+                //Сохранение файла
+                file.transferTo(new File(uploadPath + "/" + resultFilename));
+                task.setFilename(resultFilename);
             }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-            //Сохранение файла
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-            task.setFilename(resultFilename);
+
+            taskRepository.save(task);
         }
 
-        taskRepository.save(task);
 
-        return "redirect:/tasks";
+        //Если ошибок валидации нет - редиректим чтоб сообщение не дублировалось при перезагрузке
+        if (!bindingResult.hasErrors()) {
+            return "redirect:/tasks";
+        }
+        else
+        {
+            //Если ошибки есть - остаёмся на странице с сохранением полей и выводом ошибки
+            // Вытягиваем все объекты из репозитория и кладём в модель
+            Iterable<Task> tasks = taskRepository.findAll();
+            model.addAttribute("tasks", tasks);
+            //Возвращаем модель
+            return "main";
+        }
+
     }
 
     @PostMapping("/delTask/{id}")

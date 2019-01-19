@@ -1,6 +1,9 @@
 package com.taskstorage.wireframe.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Task {
@@ -9,8 +12,12 @@ public class Task {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please fill the description")
+    @Length(max = 2048, message = "Description too long")
     private String description;
-    @Column(length=1024)
+
+    @NotBlank(message = "Describe the problem")
+    @Length(max = 2048, message = "Too long")
     private String content;
     private String filename;
 
