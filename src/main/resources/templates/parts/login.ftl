@@ -51,6 +51,18 @@
                     </#if>
                 </div>
             </div>
+        <#--Google captcha part 2-->
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <div class="g-recaptcha" data-sitekey="6Ld903YUAAAAAJ7hNelA_m8LHZkadXl5wNfJq301"></div>
+                    <#if captchaError??>
+                        <div class="alert alert-danger" role="alert">
+                            ${captchaError}
+                        </div>
+                    </#if>
+                </div>
+            </div>
         </#if>
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
