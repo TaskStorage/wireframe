@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -71,19 +73,7 @@ public class MainController {
             //Заполняем поля в форме добавления чтоб не вводить заново
             model.addAttribute("task", task);
         } else {
-            if (file != null && !file.getOriginalFilename().isEmpty()) {
-                File uploadDir = new File(uploadPath);
-
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
-                //Сохранение файла
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
-                task.setFilename(resultFilename);
-            }
-
+            saveFile(task, file);
             taskRepository.save(task);
         }
 
@@ -112,6 +102,55 @@ public class MainController {
         return "redirect:/tasks";
     }
 
+    private void saveFile(@Valid Task task, @RequestParam("file") MultipartFile file) throws IOException {
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+            task.setFilename(resultFilename);
+        }
+    }
+
+    @GetMapping("/personal-tasks/{user}")
+    public String personalTasks(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable User user,
+            Model model,
+            @RequestParam(required = false) Task task
+
+    ) {
+        Set<Task> tasks = user.getTasks();
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("task", task);
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
+        return "userTasks";
+    }
+
+    @PostMapping("/personal-tasks/{user}")
+    public String updateTask(@AuthenticationPrincipal User currentUser,
+                             @PathVariable Long user,
+                             @RequestParam("id") Task task,
+                             @RequestParam("description") String description,
+                             @RequestParam("content") String content,
+                             @RequestParam("file") MultipartFile file
+    ) throws IOException {
+        if (task.getAuthor().equals(currentUser)) {
+            if(!StringUtils.isEmpty(description)) {
+                task.setDescription(description);
+            }if(!StringUtils.isEmpty(content)) {
+                task.setContent(content);
+            }
+
+            saveFile(task, file);
+            taskRepository.save(task);
+        }
+        return "redirect:/personal-tasks/" + user;
+    }
 //    @PostMapping("/search")
 //    public String search(@RequestParam String searchTag, Model model) {
 //

@@ -20,6 +20,12 @@
                 <a class="nav-link" href="/tasks">Tasks</span></a>
             </li>
             </#if>
+            <#if user??>
+                <li class="nav-item">
+                    <#--id см. - security.ftl-->
+                    <a class="nav-link" href="/personal-tasks/${currentUserId}">Personal</a>
+                </li>
+            </#if>
             <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</span></a>
