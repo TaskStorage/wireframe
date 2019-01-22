@@ -72,24 +72,17 @@ public class MainController {
             model.mergeAttributes(errorsMap);
             //Заполняем поля в форме добавления чтоб не вводить заново
             model.addAttribute("task", task);
-        } else {
-            saveFile(task, file);
-            taskRepository.save(task);
-        }
-
-
-        //Если ошибок валидации нет - редиректим чтоб сообщение не дублировалось при перезагрузке
-        if (!bindingResult.hasErrors()) {
-            return "redirect:/tasks";
-        }
-        else
-        {
-            //Если ошибки есть - остаёмся на странице с сохранением полей и выводом ошибки
             // Вытягиваем все объекты из репозитория и кладём в модель
             Iterable<Task> tasks = taskRepository.findAll();
             model.addAttribute("tasks", tasks);
             //Возвращаем модель
             return "main";
+
+        } else {
+            //Если ошибок валидации нет - редиректим чтоб сообщение не дублировалось при перезагрузке
+            saveFile(task, file);
+            taskRepository.save(task);
+            return "redirect:/tasks";
         }
 
     }

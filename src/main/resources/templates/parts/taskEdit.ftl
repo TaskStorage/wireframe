@@ -28,15 +28,20 @@
                 </#if>
             </div>
             <div class="form-group">
-                <#--<input type="text" name="content" placeholder="Details">-->
-                <textarea class="form-control" name="content" placeholder="Details" rows="3"></textarea>
+                <input class="form-control ${(contentError??)?string('is-invalid', '')}" name="content" value="<#if task??>${task.content}</#if>"
+                          placeholder="Details"></input>
+                <#if contentError??>
+                    <div class="invalid-feedback">
+                        ${contentError}
+                    </div>
+                </#if>
             </div>
             <div class="custom-file mb-2">
                 <input type="file" name="file" class="custom-file-input" id="customFile">
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input type="hidden" name="id" value="<#if task??>${task.id}</#if>"/>
+            <input type="hidden" name="id" value="<#if task??>${task.id}<#else>0</#if>"/>
             <div>
                 <button type="submit" class="btn btn-primary">Добавить</button>
             </div>
