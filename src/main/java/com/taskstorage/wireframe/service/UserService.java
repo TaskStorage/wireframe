@@ -87,8 +87,9 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public void saveUser(User user, String username, String active, Map<String, String> form) {
+    public void saveUser(User user, String username, String email, String active, Map<String, String> form) {
         user.setUsername(username);
+        user.setEmail(email);
 //        Для строкового поля
 //        user.setActive(Boolean.parseBoolean(active));
         if (active !=null && active.equals("on")) {

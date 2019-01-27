@@ -40,11 +40,12 @@ public class UserController {
     @PostMapping
     public String userSave(
             @RequestParam String username,
+            @RequestParam String email,
             @RequestParam(required = false) String active,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user) {
         //        засунуть сюда Ектив
-        userService.saveUser(user, username, active, form);
+        userService.saveUser(user, username, email , active, form);
 
         return "redirect:/user";
     }
