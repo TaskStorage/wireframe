@@ -14,6 +14,9 @@
         <#--https://www.google.com/recaptcha/admin#list-->
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <#-- /Google captcha part 1-->
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
     </head>
     <body>
     <#include "navbar.ftl">
