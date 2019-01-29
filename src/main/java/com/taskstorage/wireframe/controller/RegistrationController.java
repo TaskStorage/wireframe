@@ -25,7 +25,6 @@ public class RegistrationController {
     //Для запроса к серверу капчи
     private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
 
-    //Получаем секретный ключ из переменной
     @Value("${recaptcha.secret}")
     private String secret;
 

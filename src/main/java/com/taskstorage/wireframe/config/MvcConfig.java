@@ -26,7 +26,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //Для раздачи файлов - все запросы по пути img будут лететь в uploadPath
+        //Для раздачи файлов - все запросы по пути attachment будут лететь в uploadPath
         registry.addResourceHandler("/attachment/**")
                 .addResourceLocations("file://" + uploadPath + "/");
         //Для сторонних элементов
