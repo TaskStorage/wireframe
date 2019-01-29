@@ -17,7 +17,7 @@
 <#--Тело-->
 <div class="collapse <#if task??>show</#if>" id="collapseExample">
     <div class="form-group mt-3">
-        <form method="post" action="/addTask" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <input class="form-control ${(descriptionError??)?string('is-invalid', '')}" type="text" name="description"
                        value="<#if task??>${task.description}</#if>" placeholder="Enter description">

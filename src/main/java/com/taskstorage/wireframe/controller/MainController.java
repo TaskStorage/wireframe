@@ -53,7 +53,7 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping("/addTask")
+    @PostMapping("/tasks")
     public String add(@AuthenticationPrincipal User user,
                       @Valid Task task,
                       BindingResult bindingResult,
@@ -85,18 +85,23 @@ public class MainController {
     }
 
     @PostMapping("/delTask/{id}")
-    public String delete(@PathVariable Long id, Model model) {
+    public String delete(@PathVariable Long id) {
 
-        Optional<Task> taskToDelete = taskRepository.findById(id);
-        if (taskToDelete !=null){
-            Task currentTask = taskToDelete.get();
-            String fileToDelete = currentTask.getFilename();
-            File file = new File(uploadPath + "/" + fileToDelete);
-            file.delete();
-        }
+        attachedFileDelete(id);
 
         taskRepository.deleteById(id);
         return "redirect:/tasks";
+    }
+
+    private void attachedFileDelete(Long id) {
+        Optional<Task> parentTask = taskRepository.findById(id);
+        if (parentTask !=null){
+            String fileToDelete = parentTask.get().getFilename();
+            if (fileToDelete != null){
+            File file = new File(uploadPath + "/" + fileToDelete);
+            file.delete();}
+        }
+        System.out.println("Начало");
     }
 
     private void saveFile(@Valid Task task, @RequestParam("file") MultipartFile file) throws IOException {
@@ -142,7 +147,7 @@ public class MainController {
             }if(!StringUtils.isEmpty(content)) {
                 task.setContent(content);
             }
-
+            attachedFileDelete(task.getId());
             saveFile(task, file);
             taskRepository.save(task);
         }
