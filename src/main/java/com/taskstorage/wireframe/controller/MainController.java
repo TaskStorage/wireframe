@@ -101,7 +101,6 @@ public class MainController {
             File file = new File(uploadPath + "/" + fileToDelete);
             file.delete();}
         }
-        System.out.println("Начало");
     }
 
     private void saveFile(@Valid Task task, @RequestParam("file") MultipartFile file) throws IOException {
@@ -140,16 +139,24 @@ public class MainController {
                              @RequestParam("description") String description,
                              @RequestParam("content") String content,
                              @RequestParam("file") MultipartFile file
+
     ) throws IOException {
-        if (task.getAuthor().equals(currentUser)) {
-            if(!StringUtils.isEmpty(description)) {
-                task.setDescription(description);
-            }if(!StringUtils.isEmpty(content)) {
-                task.setContent(content);
+        if (task != null){
+            if (task.getAuthor().equals(currentUser)) {
+                if(!StringUtils.isEmpty(description)) {
+                    task.setDescription(description);
+                }if(!StringUtils.isEmpty(content)) {
+                    task.setContent(content);
+                }
+                attachedFileDelete(task.getId());
+                task.setFilename(null);
+                if (!file.getOriginalFilename().isEmpty())
+                {
+                    saveFile(task, file);
+                }
+
+                taskRepository.save(task);
             }
-            attachedFileDelete(task.getId());
-            saveFile(task, file);
-            taskRepository.save(task);
         }
         return "redirect:/personal-tasks/" + user;
     }
