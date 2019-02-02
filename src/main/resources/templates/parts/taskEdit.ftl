@@ -39,6 +39,22 @@
             <div class="custom-file mb-2">
                 <input type="file" name="file" class="custom-file-input" id="customFile">
                 <label class="custom-file-label" for="customFile">Choose file</label>
+                <script>
+                    //gets the element by its id
+                    var myFile = document.getElementById('customFile');
+
+                    //binds to onchange event of the input field
+                    myFile.addEventListener('change', function()
+                        {
+                            //this.files[0].size gets the size of your file.
+                            if (this.files[0].size > 10485760)
+                            {
+                                alert('Размер файла ' + this.files[0].size + ' байт превышает допустимый (10Мб)');
+                                myFile.value = null;
+                            }
+                        }
+                    );
+                </script>
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input type="hidden" name="id" value="<#if task??>${task.id}<#else>0</#if>"/>
