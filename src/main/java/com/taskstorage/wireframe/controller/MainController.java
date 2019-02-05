@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -121,11 +120,19 @@ public class MainController {
     public String personalTasks(
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
+            @RequestParam(required = false, defaultValue = "") String searchTag,
             Model model,
             @RequestParam(required = false) Task task
 
     ) {
-        Set<Task> tasks = user.getTasks();
+        Iterable<Task> tasks;
+
+        if (searchTag != null && !searchTag.isEmpty()) {
+            tasks = taskRepository.findByDescriptionContainingAndAuthorOrContentContainingAndAuthor(searchTag, user, searchTag, user);
+        } else {
+            tasks = user.getTasks();
+        }
+
         model.addAttribute("tasks", tasks);
         model.addAttribute("task", task);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
