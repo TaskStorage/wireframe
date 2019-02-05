@@ -1,6 +1,6 @@
 <#--Добавление и поиск-->
 <#--Шапка-->
-<form method="get" action="/tasks">
+<form method="get">
     <div class="form-row align-items-center">
         <div class="col-auto">
             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add new task</a>
