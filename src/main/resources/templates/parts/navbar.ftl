@@ -36,6 +36,9 @@
                     <a class="nav-link" href="/user/profile">Profile</span></a>
                 </li>
             </#if>
+                <li class="nav-item">
+                    <a class="nav-link" href="/feed">Feed</span></a>
+                </li>
         </ul>
         <#if user??>
             <div class="navbar-text mr-3 text-light">${name}</div>
