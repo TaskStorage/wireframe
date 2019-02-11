@@ -14,15 +14,15 @@ create table task (
   primary key (id)
 ) engine=MyISAM;
 
-create table feed (
-  id integer not null,
-  giud varchar(255),
-  link varchar(2048),
-  title varchar(255),
-  pubdate varchar(255),
-  description varchar(1024),
-  primary key (id)
-) engine=MyISAM;
+-- create table feed (
+--   id integer not null,
+--   giud varchar(255),
+--   link varchar(2048),
+--   title varchar(255),
+--   pubdate varchar(255),
+--   description varchar(1024),
+--   primary key (id)
+-- ) engine=MyISAM;
 
 create table user_role (
   user_id bigint not null,
