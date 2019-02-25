@@ -19,7 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public RestTemplate getRestTemplate (){
         return new RestTemplate();
     }
-    //Default config - https://spring.io/guides/gs/securing-web/
+    //Стандартный конфиг - https://spring.io/guides/gs/securing-web/
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }

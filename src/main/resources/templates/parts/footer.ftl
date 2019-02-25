@@ -1,11 +1,4 @@
-<!-- Footer -->
-<footer class="page-footer font-small blue fixed-bottom bg-dark">
 
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
-
+<footer class="page-footer font-small fixed-bottom bg-dark">
+    <div class="footer-copyright text-center text-light py-3">© 2018-2019</div>
 </footer>
-<!-- Footer -->

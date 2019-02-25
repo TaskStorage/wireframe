@@ -27,7 +27,7 @@ public class UserController {
         model.addAttribute("users", userService.findAll());
         return "userList";
     }
-    //    Достаём пользователей
+    // Достаём пользователей
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model) {
@@ -44,7 +44,7 @@ public class UserController {
             @RequestParam(required = false) String active,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user) {
-        //        засунуть сюда Ектив
+
         userService.saveUser(user, username, email , active, form);
 
         return "redirect:/user";
