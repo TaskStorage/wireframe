@@ -98,7 +98,7 @@ public class UserService implements UserDetailsService {
         else {
             user.setActive(false);
         }
-        //Переводим роли в получаем список ролей и переводим из Енама в Стринги
+        //Переводим роли список ролей и переводим из Енама в Стринги
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());

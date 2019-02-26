@@ -48,7 +48,7 @@ public class RegistrationController {
                           @Valid User user, BindingResult bindingResult, Model model) {
         //Формируем запрос из строки, секретного ключа и ответа пользователя
         String url = String.format(CAPTCHA_URL, secret, captchaResponse);
-        //Отправляем пост-запрос сформированный запрос, пустой лист, т.к. метод требует, и дто
+        //Отправляем пост-запрос: сформированный url, пустой лист, т.к. метод требует, и дто
         CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
         //проверяем ответ
         if (!response.isSuccess()) {

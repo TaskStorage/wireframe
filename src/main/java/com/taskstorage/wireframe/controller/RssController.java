@@ -75,7 +75,6 @@ public class RssController {
                         }
                     }
                 }
-                //if end element is reached, add feed object to list
                 if(xmlEvent.isEndElement()){
                     EndElement endElement = xmlEvent.asEndElement();
                     if(endElement.getName().getLocalPart().equals("item")){

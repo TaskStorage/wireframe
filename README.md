@@ -1,14 +1,17 @@
 ### Wireframe
-Demo project for Spring Boot
+Учебный проект по Spring Boot
 
-Special thanks to:
+Создано по подобию курса [letsCode](https://youtube.com/letsCodeDru), при поддержке добрых людей из группы [Telegram](https://t.me/joinchat/FeiP9xEhqHajfqhLr4z-Nw) и конечно Stackoverflow.
 
-Original series from Andrew [Youtube](https://youtube.com/letsCodeDru) .
+Создано исключительно в образовательных целях. Автор не несёт ответственности за любой ущерб причинённый при использовании данного ПО.
 
-Supporting from many people from his channel [Telegram](https://t.me/joinchat/FeiP9xEhqHajfqhLr4z-Nw) .
+Для запуска необходимо заполнить недостающие поля в application.properties
 
-and of course Stackoverflow.com
+Исправления и дополнения отходящие от оригинала:
+- Исправлена логика регистарции пользователей и добавления задач
+- Удаление файлов-вложений при удалении заданий
+- Расширен функционал панели администратора
+- Добавлена страница для получения последних цитат с bash.im (парсинг XML на StAX)
+- Валидацией покрыто больше мест
+- Ограничен размер загружаемых файлов как на стороне клиента так и на сервере
 
-The author is not responsible for any damage caused by this software.
-
-Created exclusively for educational purposes.

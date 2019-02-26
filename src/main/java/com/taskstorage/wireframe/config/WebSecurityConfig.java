@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    //Default config - https://spring.io/guides/gs/securing-web/
+    //Стандартный конфиг - https://spring.io/guides/gs/securing-web/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
